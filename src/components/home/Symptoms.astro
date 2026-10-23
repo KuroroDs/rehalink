@@ -1,0 +1,461 @@
+---
+const questionGroups = [
+  {
+    age: '0–3 سنوات',
+    title: 'الرضع والصغار',
+    tone: 'butter',
+    questions: [
+      'طفلك في 18 شهر وما زال ما ينطق حتى كلمة، أو ما يشيرش للأشياء.',
+      'في العامين ما يركبش جوج كلمات مثل «حليب بزاف».',
+      'في 3 سنين ما يزال ما يبنيش جملة كاملة.'
+    ]
+  },
+  {
+    age: '3–5 سنوات',
+    title: 'قبل المدرسة',
+    tone: 'lavender',
+    questions: [
+      'الكلام تاع طفلك يفهموه غير أفراد العائلة.',
+      'يعاود أول حرف من الكلمة أو يحبس قبل ما يهدر — تقدر تسقسي مختص على bégaiement.',
+      'نطق بعض الأصوات مختلف بزاف مقارنة مع اللي في سنو.'
+    ]
+  },
+  {
+    age: '5+ سنوات',
+    title: 'سن المدرسة',
+    tone: 'blue',
+    questions: [
+      'يلقى صعوبة كبيرة في تعلم الحروف والقراءة.',
+      'يتجنب يهدر في القسم أو قدام الغرباء لأن كلامو ماشي واضح.',
+      'يعاود يقرا نفس السطر بلا ما يفهم المعنى.'
+    ]
+  }
+];
+---
+
+<section class="question-section" id="symptoms">
+  <div class="container question-section__inner">
+    <header class="question-intro animate-on-scroll" data-reveal>
+      <span class="section-kicker">أسئلة تراود العائلات</span>
+      <h2>هل لاحظت شي حاجة<br /><em>تستاهل تسقسي عليها؟</em></h2>
+      <p>أسئلة بسيطة تساعدك تفتح حواراً مع مختص — ماشي اختبار، وماشي تشخيص.</p>
+      <div class="question-stamp" aria-hidden="true">
+        <span>خُذ وقتك</span>
+        <svg viewBox="0 0 44 44" fill="none"><path d="M8 23c5-11 10-13 15-8 3 3 1 8-3 8-3 0-4-4-1-6 4-3 9 0 16 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="m31 24 5 2-1 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </header>
+
+    <div class="question-wall">
+      {questionGroups.map((group, groupIndex) => (
+        <article
+          class={`question-paper question-paper--${group.tone} paper-object animate-on-scroll`}
+          data-reveal
+          style={`--reveal-delay: ${groupIndex * 120}ms;`}
+        >
+          <span class="paper-tape" aria-hidden="true"></span>
+          <header class="question-paper__header">
+            <span class="question-paper__age">{group.age}</span>
+            <span class="question-paper__index" aria-hidden="true">0{groupIndex + 1}</span>
+          </header>
+          <h3>{group.title}</h3>
+          <ul>
+            {group.questions.map((question) => <li>{question}</li>)}
+          </ul>
+          <span class="paper-handmark" aria-hidden="true">؟</span>
+        </article>
+      ))}
+
+      <aside class="question-wall__note animate-on-scroll" data-reveal>
+        <span class="paper-pin note-pin" aria-hidden="true"></span>
+        <p>كل طفل يتطور بطريقته. إذا عندك سؤال، التقييم مع مختص هو أحسن خطوة.</p>
+        <a href="/contact">تواصل مع الفريق <span aria-hidden="true">←</span></a>
+      </aside>
+      <svg class="question-wall__doodle" aria-hidden="true" viewBox="0 0 108 74" fill="none">
+        <path d="M5 49c14-28 24-37 38-29 9 6 8 19 0 23-7 3-13-5-7-11 6-7 18-5 27 4 11 10 23 8 39-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 6"/>
+        <path d="m91 26 12 1-5 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <p class="question-disclaimer animate-on-scroll" data-reveal>
+      هذه الأمثلة للتوعية فقط ولا تمثل معايير تشخيصية موحّدة. لكل طفل وتيرته وظروفه، واستشارة المختص هي المرجع.
+    </p>
+  </div>
+</section>
+
+<style>
+  .question-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: 5.5rem;
+    background:
+      radial-gradient(ellipse at 14% 76%, rgba(224, 237, 242, 0.58), transparent 32%),
+      #f2eee5;
+  }
+
+  .question-section::before,
+  .question-section::after {
+    position: absolute;
+    width: 24rem;
+    aspect-ratio: 1;
+    border: 1px solid rgba(92, 138, 119, 0.16);
+    border-radius: 48% 52% 63% 37% / 43% 37% 63% 57%;
+    content: "";
+    pointer-events: none;
+  }
+
+  .question-section::before {
+    inset-block-start: -16rem;
+    inset-inline-end: -8rem;
+    transform: rotate(18deg);
+  }
+
+  .question-section::after {
+    inset-block-end: -19rem;
+    inset-inline-start: -9rem;
+    transform: rotate(-28deg);
+  }
+
+  .question-section__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .question-intro {
+    position: relative;
+    max-width: 42rem;
+    margin-block-end: 2.4rem;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    margin-block-end: 0.7rem;
+    color: #608c77;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .question-intro h2 {
+    margin: 0;
+    color: var(--color-primary-dark);
+    font-size: clamp(2.2rem, 4vw, 3.65rem);
+    line-height: 1.24;
+    letter-spacing: -0.035em;
+  }
+
+  .question-intro h2 em {
+    color: #5d8e79;
+    font-style: normal;
+  }
+
+  .question-intro > p {
+    max-width: 33rem;
+    margin-block-start: 0.8rem;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .question-stamp {
+    position: absolute;
+    inset-block-start: 0.3rem;
+    inset-inline-end: 1rem;
+    display: grid;
+    width: 5.6rem;
+    height: 5.6rem;
+    place-items: center;
+    border: 1px solid rgba(104, 142, 120, 0.48);
+    border-radius: 50%;
+    color: #628b76;
+    font-size: 0.73rem;
+    font-weight: 800;
+    transform: rotate(11deg);
+  }
+
+  .question-stamp svg {
+    position: absolute;
+    inset: 0.2rem;
+    width: calc(100% - 0.4rem);
+    height: calc(100% - 0.4rem);
+    opacity: 0.3;
+  }
+
+  .question-wall {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.2rem;
+    align-items: start;
+    padding: 0.8rem 0.3rem 1.6rem;
+  }
+
+  .question-paper {
+    position: relative;
+    grid-column: span 4;
+    min-height: 350px;
+    padding: 1.55rem 1.45rem 1.4rem;
+    border: 1px solid rgba(36, 71, 103, 0.1);
+    box-shadow: 3px 12px 20px rgba(47, 57, 64, 0.1);
+    color: var(--color-text);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .question-paper:nth-child(1) {
+    grid-column: 1 / span 4;
+    border-radius: 4px 13px 5px 11px;
+    background: #fbf1d9;
+    transform: rotate(-1.2deg);
+  }
+
+  .question-paper:nth-child(2) {
+    grid-column: 5 / span 4;
+    margin-block-start: 1.2rem;
+    border-radius: 13px 4px 12px 5px;
+    background: #eee8f3;
+    transform: rotate(1.1deg);
+  }
+
+  .question-paper:nth-child(3) {
+    grid-column: 9 / span 4;
+    margin-block-start: -0.45rem;
+    border-radius: 5px 12px 4px 13px;
+    background: #e5eff2;
+    transform: rotate(-0.6deg);
+  }
+
+  .question-paper:hover {
+    z-index: 2;
+    box-shadow: 5px 18px 27px rgba(47, 57, 64, 0.16);
+    transform: translateY(-5px) rotate(0deg);
+  }
+
+  .question-paper:nth-child(2) .paper-tape {
+    background: rgba(222, 215, 234, 0.8);
+    transform: translateX(-50%) rotate(3deg);
+  }
+
+  .question-paper:nth-child(3) .paper-tape {
+    background: rgba(207, 227, 231, 0.84);
+    transform: translateX(-50%) rotate(-2deg);
+  }
+
+  .question-paper__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: 1.1rem;
+  }
+
+  .question-paper__age {
+    padding: 0.24rem 0.62rem;
+    border: 1px solid rgba(36, 71, 103, 0.13);
+    border-radius: 999px;
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .question-paper__index {
+    color: rgba(36, 71, 103, 0.38);
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+  }
+
+  .question-paper h3 {
+    margin: 0 0 0.9rem;
+    color: var(--color-primary-dark);
+    font-size: 1.4rem;
+  }
+
+  .question-paper ul {
+    display: grid;
+    gap: 0.8rem;
+    margin: 0;
+    padding-inline-start: 1.1rem;
+  }
+
+  .question-paper li {
+    padding-inline-start: 0.1rem;
+    color: #405468;
+    font-size: 0.91rem;
+    line-height: 1.8;
+  }
+
+  .question-paper li::marker {
+    color: #6c9b83;
+  }
+
+  .paper-handmark {
+    position: absolute;
+    inset-block-end: 0.5rem;
+    inset-inline-start: 1rem;
+    color: rgba(86, 137, 115, 0.35);
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    transform: rotate(-12deg);
+  }
+
+  .question-wall__note {
+    position: absolute;
+    inset-block-end: -1rem;
+    inset-inline-start: 3%;
+    z-index: 1;
+    width: min(18rem, 34%);
+    padding: 1rem 1.1rem 0.9rem;
+    border: 1px solid rgba(36, 71, 103, 0.1);
+    border-radius: 4px 12px 5px 11px;
+    background: #fffdf8;
+    box-shadow: 3px 8px 16px rgba(47, 57, 64, 0.12);
+    transform: rotate(2deg);
+  }
+
+  .question-wall__note p {
+    margin: 0 0 0.5rem;
+    color: var(--color-text);
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .question-wall__note a {
+    color: #427b66;
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .note-pin {
+    position: absolute;
+    inset-block-start: -0.35rem;
+    inset-inline-start: 50%;
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 2px solid #fffaf0;
+    border-radius: 50%;
+    background: #bd6e5c;
+    box-shadow: 0 2px 4px rgba(36, 71, 103, 0.22);
+    transform: translateX(-50%);
+  }
+
+  .question-wall__doodle {
+    position: absolute;
+    inset-block-start: -2rem;
+    inset-inline-end: 4%;
+    width: 6rem;
+    color: #799c84;
+    transform: rotate(8deg);
+  }
+
+  .question-disclaimer {
+    max-width: 55rem;
+    margin: 2.2rem 0 0;
+    color: #687786;
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 900px) {
+    .question-section {
+      padding-block: 4.5rem;
+    }
+
+    .question-paper {
+      grid-column: span 6;
+    }
+
+    .question-paper:nth-child(1) {
+      grid-column: 1 / span 6;
+    }
+
+    .question-paper:nth-child(2) {
+      grid-column: 7 / span 6;
+    }
+
+    .question-paper:nth-child(3) {
+      grid-column: 2 / span 6;
+      margin-block-start: 0;
+    }
+
+    .question-wall__note {
+      inset-inline-start: auto;
+      inset-inline-end: 3%;
+      width: min(18rem, 42%);
+    }
+  }
+
+  @media (max-width: 620px) {
+    .question-section {
+      padding-block: 3.5rem;
+    }
+
+    .question-intro {
+      margin-block-end: 1.6rem;
+      padding-inline-end: 0;
+    }
+
+    .question-intro h2 {
+      font-size: clamp(2rem, 9vw, 2.8rem);
+    }
+
+    .question-stamp {
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      width: 3.7rem;
+      height: 3.7rem;
+      font-size: 0.6rem;
+    }
+
+    .question-wall {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.25rem;
+      padding-inline: 0.25rem;
+      padding-block-end: 0.5rem;
+    }
+
+    .question-paper,
+    .question-paper:nth-child(1),
+    .question-paper:nth-child(2),
+    .question-paper:nth-child(3) {
+      grid-column: 1;
+      min-height: auto;
+      margin: 0 0.2rem;
+    }
+
+    .question-paper:nth-child(2) {
+      margin-inline-start: 0.75rem;
+    }
+
+    .question-paper:nth-child(3) {
+      margin-inline-end: 0.75rem;
+    }
+
+    .question-wall__note,
+    .question-wall__doodle {
+      position: relative;
+      inset: auto;
+      width: auto;
+      margin: 0 0.4rem;
+      transform: rotate(0);
+    }
+
+    .question-wall__doodle {
+      position: absolute;
+      inset-block-end: 0;
+      inset-inline-end: 0;
+      width: 4rem;
+      margin: 0;
+    }
+
+    .question-disclaimer {
+      margin-block-start: 1.2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .question-paper {
+      transition: none;
+    }
+
+    .question-paper:hover {
+      transform: none;
+    }
+  }
+</style>

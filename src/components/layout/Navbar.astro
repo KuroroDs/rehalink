@@ -1,0 +1,186 @@
+---
+import { WHATSAPP_NUMBER, isConfiguredWhatsAppNumber } from '../../data/site';
+
+const whatsappHref = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER)
+  ? `https://wa.me/${WHATSAPP_NUMBER}`
+  : '/contact';
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-brand" href="/" aria-label="Rehalink — الصفحة الرئيسية">
+      <span class="site-brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5C7.8 3.5 4.5 6.8 4.5 11c0 3.5 2.2 6.5 5.3 7.7v2.1c0 .5.4.9.9.9h2.6c.5 0 .9-.4.9-.9v-2.1c3.1-1.2 5.3-4.2 5.3-7.7 0-4.2-3.3-7.5-7.5-7.5Z" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 12c2.2-.2 3.6.5 4.1 2.5 2.2-1.9 2.4-4.2 1-6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span>Rehalink</span>
+    </a>
+
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      <a href="/">الرئيسية</a>
+      <a href="/#services">خدماتنا</a>
+      <a href="/#symptoms">أسئلة العائلات</a>
+      <a href="/#information">معلومات تهمك</a>
+    </nav>
+
+    <a
+      class="site-header__cta"
+      href={whatsappHref}
+      target={isConfiguredWhatsAppNumber(WHATSAPP_NUMBER) ? '_blank' : undefined}
+      rel={isConfiguredWhatsAppNumber(WHATSAPP_NUMBER) ? 'noopener noreferrer' : undefined}
+    >
+      احجز تقييم
+      <span aria-hidden="true">←</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 30;
+    border-block-end: 1px solid rgba(36, 71, 103, 0.1);
+    background: rgba(250, 248, 242, 0.94);
+    backdrop-filter: blur(14px);
+  }
+
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.4rem;
+    min-height: 76px;
+  }
+
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--color-primary);
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .site-brand__mark {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border: 1px solid rgba(36, 71, 103, 0.1);
+    border-radius: 14px 11px 15px 12px;
+    background: linear-gradient(145deg, #d5f0e1, #f2f7ed);
+    color: #48775f;
+    box-shadow: 0 3px 9px rgba(36, 71, 103, 0.08);
+  }
+
+  .site-brand__mark svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .site-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(0.8rem, 2vw, 1.8rem);
+  }
+
+  .site-nav a {
+    position: relative;
+    padding-block: 0.4rem;
+    color: #536477;
+    font-size: 0.84rem;
+    font-weight: 700;
+    transition: color 0.18s ease;
+  }
+
+  .site-nav a::after {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: #76a58a;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.18s ease;
+  }
+
+  .site-nav a:hover {
+    color: var(--color-primary);
+  }
+
+  .site-nav a:hover::after,
+  .site-nav a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .site-header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid rgba(77, 129, 105, 0.22);
+    border-radius: 999px;
+    background: var(--color-mint);
+    color: #193b39;
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .site-header__cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(77, 129, 105, 0.16);
+  }
+
+  @media (max-width: 760px) {
+    .site-header__inner {
+      grid-template-columns: 1fr auto;
+      gap: 0.6rem 1rem;
+      padding-block: 0.65rem;
+    }
+
+    .site-nav {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      gap: 1.2rem;
+      overflow-x: auto;
+      padding-block: 0.25rem;
+      scrollbar-width: none;
+    }
+
+    .site-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .site-nav a {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+    }
+
+    .site-header__cta {
+      grid-column: 2;
+      grid-row: 1;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.76rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav a,
+    .site-nav a::after,
+    .site-header__cta {
+      transition: none;
+    }
+
+    .site-header__cta:hover {
+      transform: none;
+    }
+  }
+</style>

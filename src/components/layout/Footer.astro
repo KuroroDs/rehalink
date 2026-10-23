@@ -1,0 +1,222 @@
+<footer class="site-footer">
+  <svg class="footer-botanical" aria-hidden="true" viewBox="0 0 440 340" fill="none">
+    <path d="M431 330C339 254 323 183 355 95 373 45 403 20 430 8" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M372 137c-49-6-75-33-73-75 39 0 70 27 73 75ZM341 210c-50 2-82-18-91-60 39-9 76 10 91 60ZM378 99c43-23 60-58 49-98-37 12-57 48-49 98Z" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M306 145c-41 20-60 55-48 96 38-14 58-49 48-96ZM351 263c-49-4-77-29-81-71 40-4 73 21 81 71ZM411 53c-17-37-13-70 14-99 27 27 30 62 11 96" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="429" cy="8" r="4" fill="currentColor"/>
+  </svg>
+
+  <div class="container footer-inner">
+    <div class="footer-main animate-on-scroll" data-reveal style="--reveal-distance: 48px; --reveal-duration: 800ms;">
+      <div class="footer-brand">
+        <a class="footer-signature" href="/" aria-label="Rehalink — الرئيسية">
+          <span class="footer-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5C7.8 3.5 4.5 6.8 4.5 11c0 3.5 2.2 6.5 5.3 7.7v2.1c0 .5.4.9.9.9h2.6c.5 0 .9-.4.9-.9v-2.1c3.1-1.2 5.3-4.2 5.3-7.7 0-4.2-3.3-7.5-7.5-7.5Z" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 12c2.2-.2 3.6.5 4.1 2.5 2.2-1.9 2.4-4.2 1-6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span>Rehalink</span>
+        </a>
+        <p>منصة تجمع الرعاية، الإصغاء، والتأهيل في رحلة واحدة.</p>
+        <span class="footer-language">بالعربية · بالدارجة · en français</span>
+      </div>
+
+      <nav class="footer-nav" aria-label="روابط الموقع">
+        <h2>تصفّح</h2>
+        <a href="/">الرئيسية</a>
+        <a href="/#services">خدماتنا</a>
+        <a href="/contact">احجز تقييم</a>
+        <a href="/privacy">سياسة الخصوصية</a>
+      </nav>
+
+      <div class="footer-contact">
+        <h2>نحن هنا لنسمعك</h2>
+        <p>لأي سؤال أو استفسار، تواصل معنا عبر البريد الإلكتروني.</p>
+        <a href="mailto:contact@rehalink.dz">contact@rehalink.dz</a>
+        <a class="footer-booking" href="/contact">ابدأ بخطوة بسيطة <span aria-hidden="true">←</span></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} Rehalink. جميع الحقوق محفوظة.</span>
+      <span>المحتوى للتوعية ولا يغني عن استشارة مختص.</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    padding-block: 4.5rem 1.25rem;
+    border-block-start: 4px solid #739a82;
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(90, 130, 112, 0.15), transparent 40%),
+      #192f43;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .footer-botanical {
+    position: absolute;
+    inset-block-start: -0.5rem;
+    inset-inline-end: -1.2rem;
+    width: min(32rem, 48vw);
+    color: rgba(184, 229, 207, 0.18);
+    pointer-events: none;
+  }
+
+  .footer-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.2fr 0.7fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    padding-block-end: 3rem;
+  }
+
+  .footer-signature {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-block-end: 0.8rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .footer-mark {
+    display: grid;
+    width: 2.55rem;
+    height: 2.55rem;
+    place-items: center;
+    border: 1px solid rgba(184, 229, 207, 0.32);
+    border-radius: 16px 13px 17px 12px;
+    background: rgba(184, 229, 207, 0.12);
+    color: #b8e5cf;
+  }
+
+  .footer-mark svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .footer-brand p,
+  .footer-contact p {
+    max-width: 22rem;
+    margin: 0;
+    color: rgba(234, 240, 239, 0.72);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .footer-language {
+    display: inline-block;
+    margin-block-start: 1rem;
+    padding: 0.32rem 0.6rem;
+    border: 1px solid rgba(184, 229, 207, 0.2);
+    border-radius: 999px;
+    color: #c4e4d2;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-nav,
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .footer-nav h2,
+  .footer-contact h2 {
+    margin: 0 0 0.25rem;
+    color: #fff;
+    font-size: 1.05rem;
+  }
+
+  .footer-nav a,
+  .footer-contact > a:not(.footer-booking) {
+    color: rgba(234, 240, 239, 0.72);
+    font-size: 0.86rem;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease;
+  }
+
+  .footer-nav a:hover,
+  .footer-contact > a:not(.footer-booking):hover {
+    color: #c9eedb;
+    text-decoration: underline;
+  }
+
+  .footer-contact > a:not(.footer-booking) {
+    color: #b8e5cf;
+    font-weight: 700;
+  }
+
+  .footer-booking {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-block-start: 0.4rem;
+    padding-block-end: 0.2rem;
+    border-block-end: 1px solid rgba(184, 229, 207, 0.55);
+    color: #d5ecde;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.8rem 1.5rem;
+    padding-block-start: 1.1rem;
+    border-block-start: 1px solid rgba(255, 255, 255, 0.13);
+    color: rgba(234, 240, 239, 0.54);
+    font-size: 0.72rem;
+  }
+
+  @media (max-width: 760px) {
+    .site-footer {
+      padding-block-start: 3.5rem;
+    }
+
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.25rem;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+
+    .footer-botanical {
+      width: 65vw;
+      opacity: 0.75;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+
+    .footer-brand {
+      grid-column: auto;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-nav a,
+    .footer-contact > a:not(.footer-booking) {
+      transition: none;
+    }
+  }
+</style>

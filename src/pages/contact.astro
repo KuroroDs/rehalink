@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/contact/ContactForm.astro';
+---
+<BaseLayout title="احجز تقييم — Rehalink" description="احجز موعد تقييم.">
+  <div class="container" style="padding-block: 80px; min-height: 60vh;">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <h1 style="font-size: 3rem; margin-bottom: 16px;">احجز تقييم</h1>
+      <p style="color: var(--color-text-muted); font-size: 1.1rem; max-width: 600px; margin-inline: auto;">
+        عمّر اسمك ورقم هاتفك، وحنا نعيطولك في أقرب وقت باش نحددو معاك موعد التقييم.
+      </p>
+    </div>
+    <ContactForm />
+    <p style="text-align: center; font-size: 0.85rem; color: var(--color-text-muted); margin-top: 40px;">
+      معلوماتك تُستخدم فقط للتواصل معك بخصوص الموعد. تقدر تطلب حذفها في أي وقت.
+    </p>
+  </div>
+</BaseLayout>

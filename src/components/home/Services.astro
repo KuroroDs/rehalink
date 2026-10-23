@@ -1,0 +1,361 @@
+---
+const services = [
+  {
+    title: 'Kinésithérapie',
+    subtitle: 'العلاج الطبيعي',
+    description: 'إعادة التأهيل الحركي، آلام الظهر والمفاصل، والتأهيل بعد الإصابة أو الجراحة.',
+    tags: ['تأهيل', 'تمارين', 'متابعة'],
+    background: '#e3eadc',
+    iconColor: '#6b8e7b',
+    video: '/videos/kinesitherapie.mp4',
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>'
+  },
+  {
+    title: 'Psychologie',
+    subtitle: 'الدعم النفسي',
+    description: 'القلق، صعوبات التركيز، مشاكل السلوك عند الأطفال، واضطرابات المزاج. مساحة آمنة وسرية.',
+    tags: ['تقييم', 'دعم', 'متابعة'],
+    background: '#f0e8f5',
+    iconColor: '#8a6d9e',
+    video: '/videos/psychologie.mp4',
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>'
+  },
+  {
+    title: 'Orthophonie',
+    subtitle: 'تقويم النطق',
+    description: 'تأخر الكلام، صعوبات النطق، التأتأة، وصعوبات القراءة والكتابة. تقييم وجلسات موجهة ومتابعة واضحة.',
+    tags: ['تقييم', 'جلسات', 'متابعة'],
+    background: '#e0eaf0',
+    iconColor: '#5d8b9e',
+    video: '/videos/intro.mp4',
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>'
+  }
+];
+---
+
+<section id="services" class="services-section">
+  <div class="container">
+    <header class="services-heading animate-on-scroll" data-reveal>
+      <h2>خدماتنا</h2>
+      <p>ثلاثة تخصصات، فريق واحد، متابعة واحدة.</p>
+    </header>
+
+    <div class="services-grid">
+      {services.map((service, index) => (
+        <article
+          class="service-card-wrapper animate-on-scroll"
+          data-reveal
+          style={`--service-background: ${service.background}; --service-icon-color: ${service.iconColor}; --reveal-delay: ${index * 120}ms;`}
+        >
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            class="service-video"
+            preload="none"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <source src={service.video} type="video/mp4" />
+          </video>
+          <div class="service-overlay" aria-hidden="true"></div>
+
+          <div class="service-content">
+            <div class="service-card-top">
+              <span class="service-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="service-icon" aria-hidden="true" set:html={service.icon}></span>
+            </div>
+
+            <div class="service-copy">
+              <p class="service-title-fr" lang="fr" dir="ltr">{service.title}</p>
+              <h3>{service.subtitle}</h3>
+              <p class="service-description">{service.description}</p>
+            </div>
+
+            <div class="service-card-bottom">
+              <ul class="service-tags" aria-label="محاور الخدمة">
+                {service.tags.map((tag) => <li>{tag}</li>)}
+              </ul>
+              <a class="service-cta" href="/contact">
+                احجز تقييم <span aria-hidden="true">←</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="services-note animate-on-scroll" data-reveal>كل التخصصات تحت سقف واحد — والتنسيق بينهم هو اللي يصنع الفرق.</p>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    padding-block: 5rem 3.5rem;
+    text-align: center;
+  }
+
+  .services-heading {
+    margin-block-end: 2.4rem;
+  }
+
+  .services-heading h2 {
+    margin: 0 0 0.35rem;
+    color: var(--color-primary-dark);
+    font-size: clamp(2rem, 2vw + 1rem, 2.8rem);
+  }
+
+  .services-heading p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    text-align: right;
+    align-items: stretch;
+  }
+
+  .service-card-wrapper {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-width: 0;
+    min-height: 410px;
+    overflow: hidden;
+    border: 1px solid rgba(36, 71, 103, 0.12);
+    border-radius: var(--radius-lg);
+    background: var(--service-background);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .service-video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .service-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(25, 47, 67, 0.17) 0%, rgba(25, 47, 67, 0.42) 38%, rgba(25, 47, 67, 0.84) 100%),
+      linear-gradient(135deg, color-mix(in srgb, var(--service-background) 40%, transparent), transparent 65%);
+  }
+
+  .service-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1.2rem;
+    min-height: 410px;
+    padding: 1.5rem;
+    color: #fff;
+  }
+
+  .service-card-top,
+  .service-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .service-number {
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .service-icon {
+    display: grid;
+    width: 3.25rem;
+    height: 3.25rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 1.1rem;
+    background: rgba(255, 253, 248, 0.92);
+    color: var(--service-icon-color);
+    box-shadow: 0 8px 20px rgba(20, 39, 58, 0.16);
+  }
+
+  .service-icon :global(svg) {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .service-copy {
+    display: grid;
+    gap: 0.25rem;
+    margin-block-start: auto;
+  }
+
+  .service-title-fr {
+    width: fit-content;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+  }
+
+  .service-copy h3 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.5rem, 1vw + 1rem, 1.9rem);
+    line-height: 1.35;
+  }
+
+  .service-description {
+    max-width: 34rem;
+    margin: 0.35rem 0 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.96rem;
+    line-height: 1.85;
+  }
+
+  .service-card-bottom {
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-block-start: auto;
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-tags li {
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 700;
+    backdrop-filter: blur(6px);
+  }
+
+  .service-cta {
+    display: inline-flex;
+    min-height: 2.65rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 999px;
+    background: var(--color-mint);
+    color: var(--color-primary-dark);
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .service-cta:hover {
+    transform: translateY(-2px);
+    background: #c9eedb;
+  }
+
+  .service-cta:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+
+  .service-card-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .services-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .services-note::before,
+  .services-note::after {
+    width: 3rem;
+    height: 1px;
+    background: var(--color-border);
+    content: "";
+  }
+
+  @media (max-width: 980px) {
+    .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .services-section {
+      padding-block: 3.5rem 2.5rem;
+    }
+
+    .services-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .service-card-wrapper,
+    .service-content {
+      min-height: 390px;
+    }
+
+    .service-content {
+      padding: 1.25rem;
+    }
+
+    .services-note {
+      gap: 0.65rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card-wrapper,
+    .service-cta {
+      transition: none;
+    }
+
+    .service-card-wrapper:hover,
+    .service-cta:hover {
+      transform: none;
+    }
+
+    .service-video {
+      display: none;
+    }
+  }
+</style>
