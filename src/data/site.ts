@@ -2,6 +2,12 @@ const configuredNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || "REPLACE_WITH
 
 export const WHATSAPP_NUMBER = configuredNumber.replace(/\D+/g, "");
 
+export function sitePath(path: string): string {
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${basePath}${normalizedPath}`;
+}
+
 export function normalizePhoneNumber(raw: string): string {
   const digits = raw.replace(/\D+/g, "");
   return digits.startsWith("0") ? digits : digits ? `0${digits}` : "";

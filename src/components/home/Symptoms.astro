@@ -1,4 +1,6 @@
 ---
+import { sitePath } from '../../data/site';
+
 const questionGroups = [
   {
     age: '0–3 سنوات',
@@ -68,7 +70,7 @@ const questionGroups = [
       <aside class="question-wall__note animate-on-scroll" data-reveal>
         <span class="paper-pin note-pin" aria-hidden="true"></span>
         <p>كل طفل يتطور بطريقته. إذا عندك سؤال، التقييم مع مختص هو أحسن خطوة.</p>
-        <a href="/contact">تواصل مع الفريق <span aria-hidden="true">←</span></a>
+        <a href={sitePath('/contact')}>تواصل مع الفريق <span aria-hidden="true">←</span></a>
       </aside>
       <svg class="question-wall__doodle" aria-hidden="true" viewBox="0 0 108 74" fill="none">
         <path d="M5 49c14-28 24-37 38-29 9 6 8 19 0 23-7 3-13-5-7-11 6-7 18-5 27 4 11 10 23 8 39-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 6"/>

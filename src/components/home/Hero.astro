@@ -1,5 +1,6 @@
 ---
 // Editorial Hero with Video
+import { sitePath } from '../../data/site';
 ---
 <section class="editorial-hero" id="home">
   <div class="container editorial-hero__inner">
@@ -13,7 +14,7 @@
         psychologie، و kinésithérapie بخطة تناسب احتياجاتك.
       </p>
       <div class="hero-actions">
-        <a class="hero-primary" href="/contact">
+        <a class="hero-primary" href={sitePath('/contact')}>
           احجز تقييم
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H5m0 0 7 7m-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -38,11 +39,11 @@
           class="hero-illustration"
           autoplay muted loop playsinline
           preload="metadata"
-          poster="/images/poster.jpg"
+          poster={sitePath('/images/hero-scene.svg')}
           aria-label="فيديو تعريفي عن Rehalink"
           style="border-radius: 24px; box-shadow: 0 20px 40px rgba(36,71,103,0.15);"
         >
-          <source src="/videos/intro.mp4" type="video/mp4" />
+          <source src={sitePath('/videos/intro.mp4')} type="video/mp4" />
         </video>
         
         <!-- Play/Sound Button Overlay -->

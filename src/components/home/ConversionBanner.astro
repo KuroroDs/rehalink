@@ -1,9 +1,12 @@
+---
+import { sitePath } from '../../data/site';
+---
 <section class="conversion-section" id="booking">
   <div class="container conversion-layout">
     <div class="conversion-art animate-on-scroll animate-on-scroll--strong" data-reveal>
       <span class="conversion-shape conversion-shape--sage" aria-hidden="true"></span>
       <span class="conversion-shape conversion-shape--lavender" aria-hidden="true"></span>
-      <img src="/images/rehab-support.svg" alt="" loading="lazy" />
+      <img src={sitePath('/images/rehab-support.svg')} alt="" loading="lazy" />
       <div class="appointment-slip">
         <span class="slip-mark" aria-hidden="true">✳</span>
         <span><strong>أول خطوة</strong><small>تبدأ بسؤال</small></span>
@@ -17,7 +20,7 @@
         إذا كاين شي حاجة مقلقاتك، نبدأو بحوار بسيط. فريقنا يوجّهك للتخصص المناسب
         ويقترح الخطوة الجاية، بلا ما تحتاج تشخيص مسبق.
       </p>
-      <a class="conversion-cta" href="/contact">
+      <a class="conversion-cta" href={sitePath('/contact')}>
         احجز تقييم
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H5m0 0 7 7m-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
