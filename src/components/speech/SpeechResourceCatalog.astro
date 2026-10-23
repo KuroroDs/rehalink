@@ -1,0 +1,594 @@
+---
+import {
+  speechAgeGroups,
+  speechCategories,
+  speechLanguages,
+  speechResources,
+} from '../../data/speech-resources';
+import { sitePath } from '../../data/site';
+---
+
+<section class="speech-catalog" aria-labelledby="speech-catalog-title">
+  <div class="container">
+    <header class="speech-catalog__heading">
+      <a class="speech-catalog__back" href={sitePath('/#assessments')}>
+        <span aria-hidden="true">→</span>
+        مجالات التوجيه
+      </a>
+      <p class="speech-catalog__eyebrow">مكتبة النطق والتواصل</p>
+      <h1 id="speech-catalog-title">اختبارات وموارد النطق والتواصل</h1>
+      <p class="speech-catalog__intro">اكتشف اختبارات وموارد تعليمية تساعدك على فهم صعوبات النطق واللغة والتواصل.</p>
+      <p class="speech-catalog__disclaimer">
+        <strong>تنبيه مهني:</strong> هذه الصفحة تعرض نماذج توضيحية فقط؛ لا توجد حالياً اختبارات أو مواد منشورة. الفحص الأولي لا يشخّص اضطراباً، والتقييم التشخيصي يقوم به مختص مؤهل.
+      </p>
+    </header>
+
+    <div class="speech-catalog__toolbar" aria-label="تصفية وترتيب الموارد">
+      <div class="speech-catalog__field">
+        <label for="speech-category">الفئة</label>
+        <select id="speech-category" name="category">
+          <option value="">جميع الفئات</option>
+          {speechCategories.map((category) => <option value={category}>{category}</option>)}
+        </select>
+      </div>
+
+      <div class="speech-catalog__field">
+        <label for="speech-age">الفئة العمرية</label>
+        <select id="speech-age" name="age">
+          <option value="">جميع الأعمار</option>
+          {speechAgeGroups.map((group) => <option value={group.value}>{group.label}</option>)}
+        </select>
+      </div>
+
+      <div class="speech-catalog__field">
+        <label for="speech-language">اللغة</label>
+        <select id="speech-language" name="language">
+          <option value="">جميع اللغات</option>
+          {speechLanguages.map((language) => <option value={language.value}>{language.label}</option>)}
+        </select>
+      </div>
+
+      <div class="speech-catalog__field">
+        <label for="speech-sort">ترتيب حسب</label>
+        <select id="speech-sort" name="sort">
+          <option value="newest">الأحدث</option>
+          <option value="price-asc">السعر: من الأقل إلى الأعلى</option>
+          <option value="price-desc">السعر: من الأعلى إلى الأقل</option>
+          <option value="popular">الأكثر شعبية</option>
+        </select>
+      </div>
+
+      <button class="speech-catalog__clear" id="speech-clear" type="button">
+        إعادة ضبط الفلاتر
+      </button>
+    </div>
+
+    <div class="speech-catalog__summary">
+      <p id="speech-results-count" role="status" aria-live="polite">{speechResources.length} نماذج توضيحية</p>
+      <span>العمر واللغة غير الموثقين لا يطابقان الفلاتر؛ والقيم الناقصة في الترتيب تظهر أخيراً.</span>
+    </div>
+
+    <div class="speech-catalog__grid" id="speech-resource-list">
+      {speechResources.map((resource) => (
+        <article
+          class="speech-resource"
+          data-resource
+          data-id={resource.id}
+          data-category={resource.category}
+          data-age-min={resource.ageRange?.min ?? ''}
+          data-age-max={resource.ageRange?.max ?? ''}
+          data-languages={resource.languages.join(',')}
+          data-price={resource.price ?? ''}
+          data-created-at={resource.createdAt ?? ''}
+          data-popularity={resource.popularity ?? ''}
+        >
+          <figure class="speech-resource__cover">
+            <img src={resource.image} alt={resource.imageAlt} width="770" height="512" loading="lazy" decoding="async" />
+            <span class="speech-resource__sample">نموذج توضيحي</span>
+          </figure>
+          <div class="speech-resource__content">
+            <div class="speech-resource__meta">
+              <span>{resource.category}</span>
+              <span>{resource.type}</span>
+            </div>
+            <h2>{resource.title}</h2>
+            <p class="speech-resource__description">{resource.description}</p>
+            <dl class="speech-resource__details">
+              <div><dt>العمر</dt><dd>{resource.ageRange ? `${resource.ageRange.min}–${resource.ageRange.max} سنة` : 'غير محدد'}</dd></div>
+              <div><dt>اللغة</dt><dd>{resource.languages.length ? resource.languages.join('، ') : 'غير محددة'}</dd></div>
+              <div><dt>السعر</dt><dd>{resource.price === 0 ? 'مجاني' : resource.price === null ? 'غير محدد' : `${resource.price} د.ج`}</dd></div>
+              <div><dt>تاريخ النشر</dt><dd>{resource.createdAt ?? 'غير متوفر'}</dd></div>
+            </dl>
+            <p class="speech-resource__status">المحتوى قيد الإعداد — لا يوجد اختبار أو تنزيل متاح.</p>
+            <button class="speech-resource__action" type="button" disabled aria-disabled="true">
+              التفاصيل قريباً
+            </button>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="speech-catalog__empty" id="speech-empty" hidden>
+      <span aria-hidden="true">⌕</span>
+      <h2>ما لقيناش موارد تطابق اختياراتك</h2>
+      <p>بعض النماذج لا تتوفر لها بعد معلومات موثقة عن العمر أو اللغة. جرّب تغيير الفلاتر أو أعد ضبطها.</p>
+      <button class="speech-catalog__clear" type="button" data-clear-filters>إعادة ضبط الفلاتر</button>
+    </div>
+
+    <p class="speech-catalog__footnote">
+      لا تتضمن النماذج أسئلة من اختبارات معيارية أو مواد محمية. عند إضافة موارد فعلية، ستُذكر اللغة والفئة العمرية والترخيص ومصدر المعلومات بحسب توثيق كل مورد.
+    </p>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.speech-catalog');
+  const list = root?.querySelector<HTMLElement>('#speech-resource-list');
+
+  if (root && list && root.dataset.initialized !== 'true') {
+    root.dataset.initialized = 'true';
+
+    const category = root.querySelector<HTMLSelectElement>('#speech-category');
+    const age = root.querySelector<HTMLSelectElement>('#speech-age');
+    const language = root.querySelector<HTMLSelectElement>('#speech-language');
+    const sort = root.querySelector<HTMLSelectElement>('#speech-sort');
+    const count = root.querySelector<HTMLElement>('#speech-results-count');
+    const empty = root.querySelector<HTMLElement>('#speech-empty');
+    const cards = Array.from(list.querySelectorAll<HTMLElement>('[data-resource]'));
+
+    const ageRanges: Record<string, { min: number; max: number }> = {
+      '2-4': { min: 2, max: 4 },
+      '4-6': { min: 4, max: 6 },
+      '6-8': { min: 6, max: 8 },
+      '8-12': { min: 8, max: 12 },
+      '12+': { min: 12, max: Number.POSITIVE_INFINITY },
+    };
+
+    const numeric = (value: string | undefined): number | null => {
+      if (!value) return null;
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const render = () => {
+      const selectedAge = age?.value ? ageRanges[age.value] : null;
+      const filtered = cards.filter((card) => {
+        const languages = (card.dataset.languages ?? '').split(',').filter(Boolean);
+        const minAge = numeric(card.dataset.ageMin);
+        const maxAge = numeric(card.dataset.ageMax);
+        const overlapsAge = !selectedAge || (
+          minAge !== null &&
+          maxAge !== null &&
+          minAge <= selectedAge.max &&
+          maxAge >= selectedAge.min
+        );
+
+        return (
+          (!category?.value || card.dataset.category === category.value) &&
+          overlapsAge &&
+          (!language?.value || languages.includes(language.value))
+        );
+      });
+
+      const direction = sort?.value ?? 'newest';
+      const sortable = filtered.map((card, index) => ({ card, index }));
+      sortable.sort((left, right) => {
+        const field = direction.startsWith('price') ? 'price' : direction === 'popular' ? 'popularity' : 'createdAt';
+        const a = field === 'createdAt'
+          ? Date.parse(left.card.dataset.createdAt ?? '') || null
+          : numeric(left.card.dataset[field]);
+        const b = field === 'createdAt'
+          ? Date.parse(right.card.dataset.createdAt ?? '') || null
+          : numeric(right.card.dataset[field]);
+
+        if (a === null && b === null) return left.index - right.index;
+        if (a === null) return 1;
+        if (b === null) return -1;
+
+        const descending = direction === 'price-desc' || direction === 'popular' || direction === 'newest';
+        return (descending ? b - a : a - b) || left.index - right.index;
+      });
+
+      sortable.forEach(({ card }) => list.append(card));
+      cards.forEach((card) => {
+        card.hidden = !filtered.includes(card);
+      });
+
+      if (count) {
+        count.textContent = `${filtered.length} ${filtered.length === 1 ? 'نموذج توضيحي' : 'نماذج توضيحية'}`;
+      }
+      if (empty) empty.hidden = filtered.length > 0;
+      list.hidden = filtered.length === 0;
+    };
+
+    const clear = () => {
+      if (category) category.value = '';
+      if (age) age.value = '';
+      if (language) language.value = '';
+      if (sort) sort.value = 'newest';
+      render();
+    };
+
+    [category, age, language, sort].forEach((control) => control?.addEventListener('change', render));
+    root.querySelector('#speech-clear')?.addEventListener('click', clear);
+    root.querySelector('[data-clear-filters]')?.addEventListener('click', clear);
+    render();
+  }
+</script>
+
+<style>
+  .speech-catalog {
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(3.5rem, 7vw, 5.5rem);
+    background:
+      radial-gradient(ellipse at 8% 5%, rgba(224, 237, 242, 0.55), transparent 27%),
+      #f8f5ed;
+  }
+
+  .speech-catalog__heading {
+    max-width: 56rem;
+    margin: 0 auto clamp(1.6rem, 3.5vw, 2.6rem);
+    text-align: center;
+  }
+
+  .speech-catalog__back {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    gap: 0.45rem;
+    margin-block-end: 0.8rem;
+    color: #527b70;
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .speech-catalog__back:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .speech-catalog__eyebrow {
+    margin: 0;
+    color: #628772;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .speech-catalog__heading h1 {
+    margin: 0.3rem 0 0.45rem;
+    font-size: clamp(1.85rem, 4.3vw, 3rem);
+    line-height: 1.4;
+  }
+
+  .speech-catalog__intro {
+    margin: 0;
+    color: #586b79;
+    font-size: clamp(0.9rem, 1.6vw, 1.02rem);
+    line-height: 1.85;
+  }
+
+  .speech-catalog__disclaimer {
+    max-width: 49rem;
+    margin: 1.15rem auto 0;
+    padding: 0.75rem 1rem;
+    border-inline-start: 3px solid #628772;
+    border-radius: 0.45rem;
+    background: #edf3eb;
+    color: #405b4d;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    text-align: start;
+  }
+
+  .speech-catalog__toolbar {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    align-items: end;
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid rgba(36, 71, 103, 0.11);
+    border-radius: 1rem;
+    background: rgba(255, 253, 248, 0.85);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .speech-catalog__field {
+    display: grid;
+    min-width: 0;
+    gap: 0.35rem;
+  }
+
+  .speech-catalog__field label {
+    color: #405669;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .speech-catalog__field select {
+    width: 100%;
+    min-height: 2.85rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #d9dedb;
+    border-radius: 0.65rem;
+    background: #fffefa;
+    color: #30495b;
+    font-size: 0.78rem;
+  }
+
+  .speech-catalog__clear {
+    min-height: 2.85rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid rgba(36, 71, 103, 0.2);
+    border-radius: 0.65rem;
+    background: transparent;
+    color: #43596a;
+    font-size: 0.76rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .speech-catalog__clear:hover {
+    background: #edf3eb;
+    color: var(--color-primary-dark);
+  }
+
+  .speech-catalog__summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-block: 1.25rem 0.85rem;
+  }
+
+  .speech-catalog__summary p {
+    margin: 0;
+    color: var(--color-primary-dark);
+    font-size: 0.92rem;
+    font-weight: 800;
+  }
+
+  .speech-catalog__summary span {
+    color: #6b7880;
+    font-size: 0.72rem;
+  }
+
+  .speech-catalog__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .speech-resource {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(36, 71, 103, 0.12);
+    border-radius: 1rem;
+    background: var(--color-surface);
+    box-shadow: 0 8px 22px rgba(36, 71, 103, 0.07);
+    transition: box-shadow 180ms ease, translate 180ms ease;
+  }
+
+  .speech-resource:hover {
+    box-shadow: var(--shadow-hover);
+    translate: 0 -2px;
+  }
+
+  .speech-resource[hidden] {
+    display: none;
+  }
+
+  .speech-resource__cover {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.8;
+    margin: 0;
+    background: #e7f0eb;
+  }
+
+  .speech-resource__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .speech-resource__sample {
+    position: absolute;
+    inset-inline-start: 0.75rem;
+    inset-block-end: 0.65rem;
+    padding: 0.28rem 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: 999px;
+    background: rgba(25, 47, 67, 0.74);
+    color: #fff;
+    font-size: 0.67rem;
+    font-weight: 800;
+  }
+
+  .speech-resource__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .speech-resource__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .speech-resource__meta span {
+    padding: 0.24rem 0.5rem;
+    border-radius: 999px;
+    background: #e8f0eb;
+    color: #4a705d;
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .speech-resource__meta span + span {
+    background: #edf1f3;
+    color: #536d7d;
+  }
+
+  .speech-resource h2 {
+    margin: 0.7rem 0 0.4rem;
+    font-size: 1.08rem;
+    line-height: 1.55;
+  }
+
+  .speech-resource__description {
+    min-height: 3.5rem;
+    margin: 0;
+    color: #5d6d78;
+    font-size: 0.78rem;
+    line-height: 1.75;
+  }
+
+  .speech-resource__details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem 0.8rem;
+    margin: 0.85rem 0 0;
+    padding-block-start: 0.75rem;
+    border-block-start: 1px solid rgba(36, 71, 103, 0.1);
+  }
+
+  .speech-resource__details div {
+    min-width: 0;
+  }
+
+  .speech-resource__details dt {
+    color: #718092;
+    font-size: 0.65rem;
+  }
+
+  .speech-resource__details dd {
+    margin: 0.1rem 0 0;
+    color: #344e5f;
+    font-size: 0.73rem;
+    font-weight: 700;
+  }
+
+  .speech-resource__status {
+    margin: 0.8rem 0;
+    color: #806344;
+    font-size: 0.69rem;
+    line-height: 1.7;
+  }
+
+  .speech-resource__action {
+    min-height: 2.65rem;
+    margin-block-start: auto;
+    border: 1px solid #dfe4e0;
+    border-radius: 999px;
+    background: #f2f3ef;
+    color: #7a8587;
+    font-size: 0.76rem;
+    font-weight: 800;
+    cursor: not-allowed;
+  }
+
+  .speech-catalog__empty {
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border: 1px dashed #c7d2cd;
+    border-radius: 1rem;
+    background: rgba(255, 253, 248, 0.65);
+    text-align: center;
+  }
+
+  .speech-catalog__empty[hidden] {
+    display: none;
+  }
+
+  .speech-catalog__empty > span {
+    color: #668b78;
+    font-size: 2rem;
+  }
+
+  .speech-catalog__empty h2 {
+    margin: 0.35rem 0;
+    font-size: 1.25rem;
+  }
+
+  .speech-catalog__empty p {
+    max-width: 35rem;
+    margin: 0 auto 0.9rem;
+    color: #64737d;
+    font-size: 0.83rem;
+    line-height: 1.8;
+  }
+
+  .speech-catalog__footnote {
+    margin: 1.1rem 0 0;
+    color: #72808a;
+    font-size: 0.72rem;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 1000px) {
+    .speech-catalog__toolbar {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .speech-catalog__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .speech-catalog__clear {
+      align-self: end;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .speech-catalog {
+      padding-block-start: 1.5rem;
+    }
+
+    .speech-catalog__heading {
+      text-align: start;
+    }
+
+    .speech-catalog__heading h1 {
+      font-size: clamp(1.7rem, 8vw, 2.3rem);
+    }
+
+    .speech-catalog__toolbar {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.65rem;
+      padding: 0.8rem;
+    }
+
+    .speech-catalog__summary {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .speech-catalog__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .speech-resource__cover {
+      aspect-ratio: 1.9;
+    }
+
+    .speech-resource__description {
+      min-height: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .speech-resource,
+    .speech-catalog__clear {
+      transition: none;
+    }
+
+    .speech-resource:hover {
+      translate: none;
+    }
+  }
+</style>
