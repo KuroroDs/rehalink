@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AssessmentLanding from '../../components/assessments/AssessmentLanding.astro';
+import { assessments } from '../../data/assessments';
+
+const assessment = assessments.find((item) => item.slug === 'movement');
+if (!assessment) throw new Error('Movement assessment content is missing.');
+---
+
+<BaseLayout
+  title="اختبارات الحركة والقدرات الحركية — RehaLink"
+  description="محاور تعريفية قيد التطوير حول الحركة والقدرات الحركية. لا توجد تمارين أو اختبارات بدنية منشورة."
+>
+  <AssessmentLanding assessment={assessment} />
+</BaseLayout>

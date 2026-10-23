@@ -1,0 +1,210 @@
+---
+import { sitePath } from '../../data/site';
+import type { Assessment } from '../../data/assessments';
+
+interface Props {
+  assessment: Assessment;
+}
+
+const { assessment } = Astro.props;
+---
+
+<section class={`assessment-landing assessment-landing--${assessment.tone}`}>
+  <div class="container">
+    <a class="assessment-landing__back" href={sitePath('/#assessments')}>
+      <span aria-hidden="true">→</span>
+      العودة إلى مجالات التوجيه
+    </a>
+
+    <div class="assessment-landing__layout">
+      <figure class="assessment-landing__media">
+        <img
+          src={assessment.image}
+          alt={assessment.imageAlt}
+          width={assessment.tone === 'wellbeing' ? 520 : assessment.tone === 'movement' ? 612 : 770}
+          height={assessment.tone === 'wellbeing' ? 400 : assessment.tone === 'movement' ? 408 : 512}
+          fetchpriority="high"
+        />
+      </figure>
+
+      <div class="assessment-landing__content">
+        <span class="assessment-landing__status">الاستبيان قيد الإعداد</span>
+        <p class="assessment-landing__specialty" lang="en" dir="ltr">{assessment.specialty}</p>
+        <h1>{assessment.title}</h1>
+        <p class="assessment-landing__description">{assessment.description}</p>
+
+        <div class="assessment-landing__notice" role="note">
+          <strong>مهم:</strong>
+          <span>{assessment.guidance} هذه المحاور تعريفية وقيد التطوير، ولا يوجد استبيان تفاعلي أو تقييم سريري منشور حالياً.</span>
+        </div>
+
+        <h2>المحاور المقترحة</h2>
+        <ul>
+          {assessment.topics.map((topic) => <li>{topic}</li>)}
+        </ul>
+
+        <p class="assessment-landing__privacy">لا تطلب هذه الصفحة معلومات شخصية أو صحية، ولا تحفظ إجابات. عند توفر الاستبيان، سنوضح طريقة استخدام أي معلومات قبل البدء.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .assessment-landing {
+    --landing-accent: #477c70;
+    --landing-soft: #e7f0eb;
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(3.5rem, 7vw, 6rem);
+    background: #f8f5ed;
+  }
+
+  .assessment-landing--wellbeing {
+    --landing-accent: #5f7f9b;
+    --landing-soft: #e9f0f4;
+  }
+
+  .assessment-landing--movement {
+    --landing-accent: #a26f45;
+    --landing-soft: #f5ede2;
+  }
+
+  .assessment-landing__back {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-end: 1.2rem;
+    color: var(--landing-accent);
+    font-size: 0.84rem;
+    font-weight: 800;
+  }
+
+  .assessment-landing__back:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .assessment-landing__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    overflow: hidden;
+    border: 1px solid rgba(36, 71, 103, 0.12);
+    border-radius: 1.4rem;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .assessment-landing__media {
+    min-height: 30rem;
+    margin: 0;
+    background: var(--landing-soft);
+  }
+
+  .assessment-landing__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .assessment-landing__content {
+    padding: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .assessment-landing__status {
+    display: inline-flex;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--landing-accent) 22%, transparent);
+    border-radius: 999px;
+    background: var(--landing-soft);
+    color: var(--landing-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .assessment-landing__specialty {
+    margin: 0.9rem 0 0.25rem;
+    color: var(--landing-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .assessment-landing h1 {
+    margin: 0;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.4;
+  }
+
+  .assessment-landing__description {
+    margin-block: 0.7rem 1rem;
+    color: #586b79;
+    line-height: 1.9;
+  }
+
+  .assessment-landing__notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-block: 1rem 1.3rem;
+    padding: 0.85rem 1rem;
+    border-inline-start: 3px solid var(--landing-accent);
+    border-radius: 0.45rem;
+    background: var(--landing-soft);
+    color: #405669;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+
+  .assessment-landing__notice strong {
+    flex: 0 0 auto;
+    color: var(--landing-accent);
+  }
+
+  .assessment-landing h2 {
+    margin: 0 0 0.45rem;
+    font-size: 1.2rem;
+  }
+
+  .assessment-landing ul {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .assessment-landing li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    color: #43596a;
+    font-size: 0.84rem;
+    line-height: 1.75;
+  }
+
+  .assessment-landing li::before {
+    width: 0.4rem;
+    height: 0.4rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--landing-accent);
+    content: "";
+  }
+
+  .assessment-landing__privacy {
+    margin: 1.1rem 0 0;
+    color: #6b7880;
+    font-size: 0.73rem;
+    line-height: 1.75;
+  }
+
+  @media (max-width: 760px) {
+    .assessment-landing__layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .assessment-landing__media {
+      min-height: 0;
+      aspect-ratio: 1.9;
+    }
+  }
+</style>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AssessmentLanding from '../../components/assessments/AssessmentLanding.astro';
+import { assessments } from '../../data/assessments';
+
+const assessment = assessments.find((item) => item.slug === 'speech');
+if (!assessment) throw new Error('Speech assessment content is missing.');
+---
+
+<BaseLayout
+  title="اختبارات النطق والتواصل — RehaLink"
+  description="محاور تعريفية قيد التطوير حول النطق والتواصل. لا يوجد استبيان تشخيصي منشور حالياً."
+>
+  <AssessmentLanding assessment={assessment} />
+</BaseLayout>

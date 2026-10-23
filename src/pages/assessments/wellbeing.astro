@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AssessmentLanding from '../../components/assessments/AssessmentLanding.astro';
+import { assessments } from '../../data/assessments';
+
+const assessment = assessments.find((item) => item.slug === 'wellbeing');
+if (!assessment) throw new Error('Well-being assessment content is missing.');
+---
+
+<BaseLayout
+  title="اختبارات الحالة النفسية — RehaLink"
+  description="محاور تأملية وتوعوية قيد التطوير حول الراحة النفسية. لا يوجد تشخيص أو استبيان منشور حالياً."
+>
+  <AssessmentLanding assessment={assessment} />
+</BaseLayout>

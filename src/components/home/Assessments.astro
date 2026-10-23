@@ -1,0 +1,397 @@
+---
+import { assessments } from '../../data/assessments';
+import { sitePath } from '../../data/site';
+---
+
+<section class="assessments-section" id="assessments" aria-labelledby="assessments-title">
+  <div class="container">
+    <header class="assessments-heading animate-on-scroll" data-reveal>
+      <span class="assessments-heading__eyebrow">تعرّف على احتياجاتك</span>
+      <h2 id="assessments-title">اختبر، افهم، <em>وتوجّه</em></h2>
+      <p>خطوة أولى لفهم احتياجاتك واكتشاف نوع المرافقة التي قد تناسبك.</p>
+    </header>
+
+    <div class="assessments-grid">
+      {assessments.map((assessment, index) => (
+        <article
+          class={`assessment-card assessment-card--${assessment.tone} animate-on-scroll`}
+          data-reveal
+          style={`--reveal-delay: ${index * 100}ms;`}
+        >
+          <figure class="assessment-card__media">
+            <img
+              src={assessment.image}
+              alt={assessment.imageAlt}
+              width={assessment.tone === 'wellbeing' ? 520 : assessment.tone === 'movement' ? 612 : 770}
+              height={assessment.tone === 'wellbeing' ? 400 : assessment.tone === 'movement' ? 408 : 512}
+              loading="lazy"
+              decoding="async"
+              style={`--assessment-image-position: ${assessment.imagePosition};`}
+            />
+            <span class="assessment-card__specialty" lang="en" dir="ltr">{assessment.specialty}</span>
+          </figure>
+
+          <div class="assessment-card__body">
+            <div class="assessment-card__title-row">
+              <span class="assessment-card__icon" aria-hidden="true">
+                {assessment.tone === 'speech' ? (
+                  <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M5 7.5A3.5 3.5 0 0 1 8.5 4h15A3.5 3.5 0 0 1 27 7.5v9a3.5 3.5 0 0 1-3.5 3.5H14l-6 5v-5.2a3.5 3.5 0 0 1-3-3.3v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M11 12h.1M16 12h.1M21 12h.1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                ) : assessment.tone === 'wellbeing' ? (
+                  <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M16 26S5 19.7 5 12.1C5 8.8 7.4 6 10.6 6c2.2 0 4.1 1.3 5.4 3 1.3-1.7 3.2-3 5.4-3C24.6 6 27 8.8 27 12.1 27 19.7 16 26 16 26Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M9 16h4l2-4 3 7 2-3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 32 32" fill="none">
+                    <circle cx="20.5" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="m17 10-4 6 4 3 3-4 3 4-3 8M16 19l-5 6M15 12l6 2 3 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                )}
+              </span>
+              <span class="assessment-card__number" aria-hidden="true">0{index + 1}</span>
+            </div>
+
+            <h3>{assessment.title}</h3>
+            <p class="assessment-card__description">{assessment.description}</p>
+
+            <ul class="assessment-card__topics" aria-label="محاور مقترحة">
+              {assessment.topics.map((topic) => <li>{topic}</li>)}
+            </ul>
+
+            <p class="assessment-card__notice">
+              <span aria-hidden="true">ⓘ</span>
+              محاور توعوية لا تقدّم تشخيصاً ولا تغني عن استشارة مختص.
+            </p>
+
+            <a class="assessment-card__link" href={sitePath(`/assessments/${assessment.slug}/`)}>
+              {assessment.cta}
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                <path d="M19 12H5m0 0 7 7m-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="assessments-footnote">المحاور المعروضة مقترحة وقيد التطوير. لا توجد استبيانات تشخيصية منشورة حالياً، ولا تُرسل إجاباتك أو بياناتك عبر هذه الصفحة.</p>
+  </div>
+</section>
+
+<style>
+  .assessments-section {
+    padding-block: clamp(3.75rem, 6.5vw, 5.75rem);
+    background:
+      radial-gradient(ellipse at 92% 12%, rgba(224, 237, 242, 0.54), transparent 28%),
+      #fbf8f1;
+  }
+
+  .assessments-heading {
+    max-width: 48rem;
+    margin: 0 auto clamp(1.75rem, 3.5vw, 2.6rem);
+    text-align: center;
+  }
+
+  .assessments-heading__eyebrow {
+    color: #678773;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .assessments-heading h2 {
+    margin: 0.35rem 0 0.45rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.35;
+  }
+
+  .assessments-heading h2 em {
+    color: #668b78;
+    font-style: normal;
+  }
+
+  .assessments-heading > p {
+    margin: 0;
+    color: #5c6c79;
+    font-size: clamp(0.9rem, 1.4vw, 1rem);
+    line-height: 1.85;
+  }
+
+  .assessments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: clamp(0.9rem, 1.8vw, 1.4rem);
+  }
+
+  .assessment-card {
+    --assessment-accent: #477c70;
+    --assessment-soft: #e7f0eb;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(36, 71, 103, 0.12);
+    border-radius: 1.25rem;
+    background: var(--color-surface);
+    box-shadow: 0 9px 25px rgba(36, 71, 103, 0.075);
+    transition: border-color 180ms ease, box-shadow 180ms ease, translate 180ms ease;
+  }
+
+  .assessment-card--wellbeing {
+    --assessment-accent: #5f7f9b;
+    --assessment-soft: #e9f0f4;
+  }
+
+  .assessment-card--movement {
+    --assessment-accent: #a26f45;
+    --assessment-soft: #f5ede2;
+  }
+
+  .assessment-card:hover {
+    border-color: color-mix(in srgb, var(--assessment-accent) 35%, transparent);
+    box-shadow: 0 14px 30px rgba(36, 71, 103, 0.12);
+    translate: 0 -2px;
+  }
+
+  .assessment-card__media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.9;
+    margin: 0;
+    background: var(--assessment-soft);
+  }
+
+  .assessment-card__media::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(25, 47, 67, 0.58), transparent 48%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .assessment-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--assessment-image-position, center);
+    transition: scale 400ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .assessment-card:hover .assessment-card__media img {
+    scale: 1.025;
+  }
+
+  .assessment-card__specialty {
+    position: absolute;
+    inset-inline-start: 0.85rem;
+    inset-block-end: 0.75rem;
+    z-index: 1;
+    padding: 0.27rem 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    background: rgba(25, 47, 67, 0.55);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 700;
+    backdrop-filter: blur(5px);
+  }
+
+  .assessment-card__body {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    padding: clamp(1rem, 1.7vw, 1.35rem);
+  }
+
+  .assessment-card__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: 0.65rem;
+  }
+
+  .assessment-card__icon {
+    display: grid;
+    width: 2.7rem;
+    height: 2.7rem;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--assessment-accent) 20%, transparent);
+    border-radius: 0.9rem;
+    background: var(--assessment-soft);
+    color: var(--assessment-accent);
+  }
+
+  .assessment-card__icon svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .assessment-card__number {
+    color: color-mix(in srgb, var(--assessment-accent) 68%, white);
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .assessment-card h3 {
+    margin: 0 0 0.45rem;
+    font-size: clamp(1.18rem, 1.55vw, 1.45rem);
+    line-height: 1.5;
+  }
+
+  .assessment-card__description {
+    min-height: 5.4rem;
+    margin: 0;
+    color: #586b79;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+
+  .assessment-card__topics {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0.85rem 0 0.8rem;
+    padding: 0.75rem 0 0;
+    border-block-start: 1px solid rgba(36, 71, 103, 0.1);
+    list-style: none;
+  }
+
+  .assessment-card__topics li {
+    position: relative;
+    padding-inline-start: 1rem;
+    color: #43596a;
+    font-size: 0.75rem;
+    line-height: 1.65;
+  }
+
+  .assessment-card__topics li::before {
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.65em;
+    width: 0.36rem;
+    height: 0.36rem;
+    border-radius: 50%;
+    background: var(--assessment-accent);
+    content: "";
+  }
+
+  .assessment-card__notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    margin: 0 0 1rem;
+    color: #657481;
+    font-size: 0.68rem;
+    line-height: 1.65;
+  }
+
+  .assessment-card__notice span {
+    flex: 0 0 auto;
+    color: var(--assessment-accent);
+  }
+
+  .assessment-card__link {
+    display: inline-flex;
+    min-height: 2.8rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-block-start: auto;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--assessment-accent) 25%, transparent);
+    border-radius: 999px;
+    background: var(--assessment-soft);
+    color: color-mix(in srgb, var(--assessment-accent) 80%, #192f43);
+    font-size: 0.77rem;
+    font-weight: 800;
+    transition: background-color 180ms ease, gap 180ms ease;
+  }
+
+  .assessment-card__link:hover {
+    gap: 0.7rem;
+    background: color-mix(in srgb, var(--assessment-soft) 70%, white);
+  }
+
+  .assessment-card__link svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .assessments-footnote {
+    max-width: 55rem;
+    margin: 1.1rem auto 0;
+    color: #6f7c83;
+    font-size: 0.72rem;
+    line-height: 1.75;
+    text-align: center;
+  }
+
+  @media (max-width: 1080px) {
+    .assessments-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .assessment-card:last-child {
+      grid-column: 1 / -1;
+      width: calc((100% - clamp(0.9rem, 1.8vw, 1.4rem)) / 2);
+      justify-self: center;
+    }
+
+    .assessment-card__description {
+      min-height: 4.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .assessments-section {
+      padding-block: 3.25rem;
+    }
+
+    .assessments-heading {
+      margin-block-end: 1.45rem;
+    }
+
+    .assessments-heading h2 {
+      font-size: clamp(1.9rem, 8vw, 2.5rem);
+    }
+
+    .assessments-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.9rem;
+    }
+
+    .assessment-card:last-child {
+      grid-column: auto;
+      width: 100%;
+    }
+
+    .assessment-card__media {
+      aspect-ratio: 1.85;
+    }
+
+    .assessment-card__body {
+      padding: 1rem;
+    }
+
+    .assessment-card__description,
+    .assessment-card:last-child .assessment-card__description {
+      min-height: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .assessment-card,
+    .assessment-card__media img,
+    .assessment-card__link {
+      transition: none;
+    }
+
+    .assessment-card:hover {
+      translate: none;
+    }
+  }
+</style>
