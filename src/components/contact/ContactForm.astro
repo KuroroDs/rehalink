@@ -1,45 +1,270 @@
 ---
-const WHATSAPP_NUMBER = "REPLACE_WITH_CONFIRMED_NUMBER";
+import { WHATSAPP_NUMBER, isConfiguredWhatsAppNumber } from '../../data/site';
+
+const hasWhatsAppNumber = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER);
 ---
-<form id="booking-form" style="max-width: 500px; margin-inline: auto; display: flex; flex-direction: column; gap: 24px; text-align: right;">
-  
-  <div>
-    <label for="name" style="display: block; margin-bottom: 8px; font-weight: 700; color: var(--color-primary-dark);">الاسم الكامل</label>
-    <input type="text" id="name" name="name" required placeholder="مثلاً: أمينة بن علي" style="width: 100%; padding: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; background: var(--color-surface); outline: none; transition: border 0.2s;" onfocus="this.style.borderColor='var(--color-primary)'" onblur="this.style.borderColor='var(--color-border)'" />
+<form class="booking-form" id="booking-form" novalidate>
+  <div class="booking-field">
+    <label for="name">الاسم الكامل <span aria-hidden="true">*</span></label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      autocomplete="name"
+      maxlength="120"
+      required
+      aria-required="true"
+      placeholder="مثلاً: أمينة بن علي"
+      aria-describedby="name-help form-feedback"
+    />
+    <small id="name-help">الاسم اللي نقدروا نناديوك به.</small>
   </div>
 
-  <div>
-    <label for="phone" style="display: block; margin-bottom: 8px; font-weight: 700; color: var(--color-primary-dark);">رقم الهاتف</label>
-    <input type="tel" id="phone" name="phone" dir="ltr" required placeholder="05 XX XX XX XX" style="width: 100%; padding: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; background: var(--color-surface); text-align: left; outline: none; transition: border 0.2s;" onfocus="this.style.borderColor='var(--color-primary)'" onblur="this.style.borderColor='var(--color-border)'" />
+  <div class="booking-field">
+    <label for="phone">رقم الهاتف <span aria-hidden="true">*</span></label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      dir="ltr"
+      inputmode="tel"
+      autocomplete="tel"
+      maxlength="32"
+      required
+      aria-required="true"
+      placeholder="+213 5 XX XX XX XX"
+      aria-describedby="phone-help form-feedback"
+    />
+    <small id="phone-help">اكتب الرقم مع رمز الدولة إن توفر؛ نقبل تنسيقات هاتف مختلفة.</small>
   </div>
 
-  <button type="submit" style="background: var(--color-primary); color: white; padding: 18px; border: none; border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.2s;" onmouseover="this.style.background='var(--color-primary-dark)'" onmouseout="this.style.background='var(--color-primary)'">
-    أرسل عبر واتساب
+  <p class="booking-form__privacy">
+  ما نطلبوش أعراض أو معلومات طبية. اسمك ورقمك يظهرو في رسالة واتساب جاهزة. الرابط يفتح واتساب، لكن الرسالة ما توصلش للفريق حتى تراجعها وتضغط على إرسال.
+  </p>
+
+  <button class="booking-form__submit" type="button">
+    فتح واتساب
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5m0 0 7 7m-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
   </button>
 
-  <p style="font-size: 0.85rem; color: var(--color-text-muted); text-align: center; line-height: 1.6;">
-    بالضغط على الزر، راح يتفتح واتساب برسالة جاهزة فيها اسمك ورقمك. ما نخزنوش معلوماتك على الموقع.
-  </p>
+  <p class="booking-form__hint">بالضغط، يفتح واتساب برسالة مسبقة التعبئة. راجعها ثم أرسلها بنفسك؛ الضغط هنا لا يرسلها تلقائياً.</p>
+  <p class="booking-form__feedback" id="form-feedback" role="status" aria-live="polite"></p>
+  {!hasWhatsAppNumber && (
+    <p class="booking-form__config-note">
+      الإرسال عبر واتساب غير متاح حالياً. على إدارة الموقع إعداد رقم الوجهة قبل استقبال الطلبات.
+    </p>
+  )}
 </form>
 
-<script is:inline define:vars={{ WHATSAPP_NUMBER }}>
+<style>
+  .booking-form {
+    display: grid;
+    gap: 1.1rem;
+    width: 100%;
+  }
+
+  .booking-field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .booking-field label {
+    color: var(--color-primary-dark);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .booking-field label span {
+    color: #9d554d;
+  }
+
+  .booking-field input {
+    width: 100%;
+    min-height: 3.35rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #d8d6cd;
+    border-radius: 0.8rem;
+    background: #fffefa;
+    color: var(--color-primary-dark);
+    font-size: 1rem;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .booking-field input:focus-visible {
+    border-color: #4d806c;
+    box-shadow: 0 0 0 3px rgba(77, 128, 108, 0.14);
+    outline: none;
+  }
+
+  .booking-field input[aria-invalid="true"] {
+    border-color: #a84c43;
+  }
+
+  .booking-field input::placeholder {
+    color: #89919a;
+    opacity: 1;
+  }
+
+  .booking-field small,
+  .booking-form__hint {
+    color: var(--color-text-muted);
+    font-size: 0.76rem;
+    line-height: 1.65;
+  }
+
+  .booking-form__privacy,
+  .booking-form__hint,
+  .booking-form__feedback,
+  .booking-form__config-note {
+    margin: 0;
+  }
+
+  .booking-form__privacy {
+    padding: 0.75rem 0.85rem;
+    border-inline-start: 3px solid #78a58b;
+    border-radius: 0.4rem;
+    background: #f0f5ee;
+    color: #4a5d62;
+    font-size: 0.78rem;
+    line-height: 1.75;
+  }
+
+  .booking-form__submit {
+    display: inline-flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 0.85rem;
+    background: var(--color-primary-dark);
+    box-shadow: 0 7px 16px rgba(25, 47, 67, 0.16);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .booking-form__submit:hover {
+    transform: translateY(-1px);
+    background: #2b506e;
+    box-shadow: 0 10px 20px rgba(25, 47, 67, 0.2);
+  }
+
+  .booking-form__submit svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .booking-form__hint,
+  .booking-form__feedback {
+    text-align: center;
+  }
+
+  .booking-form__feedback:not(:empty) {
+    color: #8b4138;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .booking-form__feedback[data-state="success"] {
+    color: #376d51;
+  }
+
+  .booking-form__feedback a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .booking-form__config-note {
+    padding: 0.7rem;
+    border-radius: 0.6rem;
+    background: #fff2df;
+    color: #75501f;
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .booking-field input,
+    .booking-form__submit {
+      transition: none;
+    }
+
+    .booking-form__submit:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ WHATSAPP_NUMBER, hasWhatsAppNumber }}>
   const form = document.getElementById('booking-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      
-      const message = `مرحبا، أريد حجز تقييم.\nالاسم: ${name}\nالهاتف: ${phone}`;
-      const encodedMessage = encodeURIComponent(message);
-      
-      if (WHATSAPP_NUMBER === "REPLACE_WITH_CONFIRMED_NUMBER") {
-        alert("⚠️ Configuration Error: Please set the WHATSAPP_NUMBER in ContactForm.astro.");
+  const nameInput = document.getElementById('name');
+  const phoneInput = document.getElementById('phone');
+  const feedback = document.getElementById('form-feedback');
+  const submitButton = form?.querySelector('.booking-form__submit');
+
+  if (form && nameInput && phoneInput && feedback && submitButton) {
+    const prepareWhatsAppMessage = () => {
+      nameInput.setCustomValidity('');
+      phoneInput.setCustomValidity('');
+      nameInput.removeAttribute('aria-invalid');
+      phoneInput.removeAttribute('aria-invalid');
+
+      if (!nameInput.value.trim()) {
+        nameInput.setCustomValidity('اكتب اسمك من فضلك.');
+        nameInput.setAttribute('aria-invalid', 'true');
+      }
+
+      const phoneDigits = phoneInput.value.replace(/\D/g, '');
+      if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+        phoneInput.setCustomValidity('اكتب رقم هاتف صحيحاً من 7 إلى 15 رقماً، مع رمز الدولة إن توفر.');
+        phoneInput.setAttribute('aria-invalid', 'true');
+      }
+
+      if (!form.reportValidity()) {
+        feedback.dataset.state = 'error';
+        feedback.textContent = 'راجع الخانات المطلوبة وصحّح رقم الهاتف قبل المتابعة.';
+        form.querySelector('[aria-invalid="true"]')?.focus();
         return;
       }
 
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-      window.open(url, '_blank');
+      if (!hasWhatsAppNumber) {
+        feedback.dataset.state = 'error';
+        feedback.textContent = 'ما قدرناش نفتح واتساب لأن رقم الوجهة غير مضبوط حالياً. تواصل معنا عبر البريد الإلكتروني.';
+        return;
+      }
+
+      const message = `مرحبا، أريد حجز تقييم.\nالاسم: ${nameInput.value.trim()}\nالهاتف: ${phoneInput.value.trim()}`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      feedback.dataset.state = 'success';
+      feedback.replaceChildren('إذا ما فتحش واتساب، ');
+      const fallbackLink = document.createElement('a');
+      fallbackLink.href = url;
+      fallbackLink.target = '_blank';
+      fallbackLink.rel = 'noopener noreferrer';
+      fallbackLink.textContent = 'اضغط هنا لفتحه';
+      feedback.append(fallbackLink, '. راجع الرسالة ثم أرسلها من واتساب.');
+    };
+
+    submitButton.addEventListener('click', prepareWhatsAppMessage);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      prepareWhatsAppMessage();
+    });
+
+    [nameInput, phoneInput].forEach((input) => {
+      input.addEventListener('input', () => {
+        input.setCustomValidity('');
+        input.removeAttribute('aria-invalid');
+        feedback.textContent = '';
+        delete feedback.dataset.state;
+      });
     });
   }
 </script>

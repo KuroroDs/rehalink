@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SpaceLanding from '../../components/spaces/SpaceLanding.astro';
+---
+
+<BaseLayout
+  title="فضاء المتخصصين والمعالجين — RehaLink"
+  description="مساحة قيد الإعداد للمتخصصين والمعالجين، بمواضيع مهنية مقترحة في مجالات التأهيل."
+>
+  <SpaceLanding
+    title="فضاء المتخصصين والمعالجين"
+    description="نعمل على إعداد مساحة مهنية تجمع موضوعات معرفية وأفكاراً عملية لدعم تطوير الممارسة ومرافقة المرضى في رحلة التأهيل."
+    tone="professional"
+    topics={[
+      'موضوعات معرفية ومهنية.',
+      'أفكار لتنظيم المتابعة العلاجية.',
+      'مشاركة الخبرات والممارسات المهنية.',
+      'محتوى في علاج النطق، علم النفس، والعلاج الحركي.',
+    ]}
+  />
+</BaseLayout>

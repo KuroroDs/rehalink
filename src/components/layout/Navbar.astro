@@ -22,6 +22,20 @@ const whatsappHref = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER)
       <a href={sitePath('/#information')}>معلومات تهمك</a>
     </nav>
 
+    <details class="site-mobile-menu">
+      <summary aria-label="قائمة التنقل">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </summary>
+      <nav aria-label="التنقل الرئيسي">
+        <a href={sitePath('/')}>الرئيسية</a>
+        <a href={sitePath('/#services')}>خدماتنا</a>
+        <a href={sitePath('/#symptoms')}>أسئلة العائلات</a>
+        <a href={sitePath('/#information')}>معلومات تهمك</a>
+      </nav>
+    </details>
+
     <a
       class="site-header__cta"
       href={whatsappHref}
@@ -45,6 +59,7 @@ const whatsappHref = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER)
   }
 
   .site-header__inner {
+    position: relative;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -117,6 +132,10 @@ const whatsappHref = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER)
     transform: scaleX(1);
   }
 
+  .site-mobile-menu {
+    display: none;
+  }
+
   .site-header__cta {
     display: inline-flex;
     align-items: center;
@@ -139,35 +158,79 @@ const whatsappHref = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER)
 
   @media (max-width: 760px) {
     .site-header__inner {
-      grid-template-columns: 1fr auto;
-      gap: 0.6rem 1rem;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 0.55rem;
       padding-block: 0.65rem;
     }
 
     .site-nav {
-      grid-column: 1 / -1;
-      grid-row: 2;
-      justify-content: flex-start;
-      flex-wrap: nowrap;
-      gap: 1.2rem;
-      overflow-x: auto;
-      padding-block: 0.25rem;
-      scrollbar-width: none;
-    }
-
-    .site-nav::-webkit-scrollbar {
       display: none;
     }
 
-    .site-nav a {
-      flex: 0 0 auto;
-      font-size: 0.78rem;
+    .site-mobile-menu {
+      position: relative;
+      display: block;
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .site-mobile-menu summary {
+      display: grid;
+      width: 2.65rem;
+      height: 2.65rem;
+      place-items: center;
+      border: 1px solid rgba(36, 71, 103, 0.14);
+      border-radius: 50%;
+      background: var(--color-surface);
+      color: var(--color-primary-dark);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .site-mobile-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .site-mobile-menu summary svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+
+    .site-mobile-menu nav {
+      position: absolute;
+      inset-block-start: calc(100% + 0.65rem);
+      inset-inline-start: 0;
+      z-index: 31;
+      display: flex;
+      width: min(18rem, calc(100vw - 1.5rem));
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: 0.5rem;
+      border: 1px solid rgba(36, 71, 103, 0.12);
+      border-radius: 1rem;
+      background: var(--color-surface);
+      box-shadow: 0 12px 28px rgba(36, 71, 103, 0.16);
+    }
+
+    .site-mobile-menu nav a {
+      padding: 0.7rem 0.8rem;
+      border-radius: 0.65rem;
+      color: var(--color-text);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .site-mobile-menu nav a:hover,
+    .site-mobile-menu nav a:focus-visible {
+      background: #edf5ef;
+      color: var(--color-primary-dark);
     }
 
     .site-header__cta {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 1;
-      padding: 0.55rem 0.8rem;
+      justify-self: end;
+      padding: 0.55rem 0.65rem;
       font-size: 0.76rem;
     }
   }
@@ -176,6 +239,10 @@ const whatsappHref = isConfiguredWhatsAppNumber(WHATSAPP_NUMBER)
     .site-nav a,
     .site-nav a::after,
     .site-header__cta {
+      transition: none;
+    }
+
+    .site-mobile-menu nav a {
       transition: none;
     }
 

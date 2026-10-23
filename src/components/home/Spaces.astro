@@ -1,0 +1,524 @@
+---
+import { sitePath } from '../../data/site';
+
+const spaces = [
+  {
+    id: 'parents',
+    title: 'فضاء الأولياء',
+    description:
+      'رحلة طفلكم لا يجب أن تخوضوها وحدكم. اكتشفوا معلومات مبسطة وإرشادات عملية تساعدكم على فهم احتياجات طفلكم ومرافقته في رحلة العلاج.',
+    features: [
+      'فهم صعوبات التواصل والتطور عند الأطفال.',
+      'التعرف على العلامات التي تستدعي استشارة متخصص.',
+      'إرشادات عملية لمرافقة الطفل في المنزل.',
+      'معلومات تساعد الأولياء على اتخاذ خطوات مناسبة.',
+    ],
+    href: sitePath('/spaces/parents/'),
+    cta: 'اكتشفوا فضاء الأولياء',
+    tone: 'family',
+    image: sitePath('/images/parents-family.png'),
+    imageAlt: 'أب وأم يساندان طفلهما في بيئة منزلية مريحة',
+    imagePosition: '52% center',
+  },
+  {
+    id: 'professionals',
+    title: 'فضاء المتخصصين والمعالجين',
+    description:
+      'فضاء مهني يجمع المعرفة والموارد التي تساعد المتخصصين على تطوير ممارساتهم وتحسين مرافقتهم للمرضى.',
+    features: [
+      'موارد معرفية ومهنية.',
+      'أدوات لتنظيم المتابعة العلاجية.',
+      'تبادل الخبرات والممارسات المهنية.',
+      'محتوى متعلق بعلاج النطق وعلم النفس والعلاج الحركي.',
+    ],
+    href: sitePath('/spaces/professionals/'),
+    cta: 'اكتشف فضاء المتخصصين',
+    tone: 'professional',
+    image: sitePath('/images/therapist-consultation.jpg'),
+    imageAlt: 'أخصائية صحية تراجع ملفاً طبياً في مساحة مهنية للاستشارة',
+    imagePosition: '23% center',
+  },
+];
+---
+
+<section class="spaces-section" id="spaces" aria-labelledby="spaces-title">
+  <div class="container">
+    <header class="spaces-heading animate-on-scroll" data-reveal>
+      <div class="spaces-heading__title">
+        <span class="spaces-eyebrow">معاً في رحلة الرعاية</span>
+        <h2 id="spaces-title">مساحات <span>RehaLink</span></h2>
+      </div>
+      <p>مساحات تجمع العائلة بالمعرفة، وتربط المتخصصين بالموارد التي تدعم رعاية أفضل.</p>
+    </header>
+
+    <div class="spaces-grid">
+      {spaces.map((space, index) => (
+        <article
+          class={`space-card space-card--${space.tone} animate-on-scroll`}
+          data-reveal
+          style={`--reveal-delay: ${index * 120}ms;`}
+        >
+          <figure class="space-card__media">
+            <img
+              src={space.image}
+              alt={space.imageAlt}
+              width={space.tone === 'family' ? 1312 : 770}
+              height={space.tone === 'family' ? 562 : 512}
+              loading="lazy"
+              decoding="async"
+              style={`--image-position: ${space.imagePosition};`}
+            />
+            <figcaption class="space-card__image-caption">
+              {space.tone === 'family' ? 'الدعم يبدأ من العائلة' : 'رعاية مبنية على المعرفة'}
+            </figcaption>
+          </figure>
+
+          <div class="space-card__content">
+            <div class="space-card__eyebrow">
+              <span class="space-card__icon" aria-hidden="true">
+                {space.tone === 'family' ? (
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="18" cy="16" r="7" stroke="currentColor" stroke-width="2" />
+                    <circle cx="33" cy="20" r="5" stroke="currentColor" stroke-width="2" />
+                    <path d="M5 39c1-8 6-12 13-12s12 4 13 12M29 29c7-2 12 2 14 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <path d="M22 9c2-3 7-2 7 2 0 3-4 6-7 8-3-2-7-5-7-8 0-4 5-5 7-2Z" fill="currentColor" opacity=".2" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <rect x="8" y="7" width="32" height="34" rx="7" stroke="currentColor" stroke-width="2" />
+                    <path d="M17 17h14M17 24h14M17 31h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <path d="m31 31 2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+              </span>
+              <span class="space-card__status">مساحة قيد الإعداد</span>
+            </div>
+
+            <div class="space-card__copy">
+              <h3>{space.title}</h3>
+              <p>{space.description}</p>
+            </div>
+
+            <ul class="space-card__features">
+              {space.features.map((feature) => (
+                <li>
+                  <span aria-hidden="true"></span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <a class="space-card__link" href={space.href}>
+              {space.cta}
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                <path d="M19 12H5m0 0 7 7m-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .spaces-section {
+    position: relative;
+    padding-block: clamp(3.75rem, 6vw, 5.5rem);
+    background:
+      radial-gradient(ellipse at 7% 88%, rgba(226, 234, 220, 0.55), transparent 31%),
+      #fbf8f1;
+  }
+
+  .spaces-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.68fr);
+    align-items: end;
+    gap: clamp(1rem, 4vw, 3.5rem);
+    margin-block-end: clamp(1.5rem, 3.2vw, 2.5rem);
+  }
+
+  .spaces-heading__title {
+    min-width: 0;
+  }
+
+  .spaces-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #5d806c;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .spaces-eyebrow::before {
+    width: 1.35rem;
+    height: 1px;
+    background: currentColor;
+    content: "";
+  }
+
+  .spaces-heading h2 {
+    margin: 0.3rem 0 0;
+    font-size: clamp(2.05rem, 4vw, 3.2rem);
+    line-height: 1.28;
+    letter-spacing: -0.025em;
+  }
+
+  .spaces-heading h2 span {
+    color: #628772;
+  }
+
+  .spaces-heading > p {
+    max-width: 29rem;
+    margin: 0 0 0.35rem;
+    color: #586b79;
+    font-size: clamp(0.9rem, 1.35vw, 1.02rem);
+    line-height: 1.9;
+  }
+
+  .spaces-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: clamp(1rem, 2.2vw, 1.75rem);
+  }
+
+  .space-card {
+    --space-accent: #527b62;
+    --space-accent-soft: #e7efe5;
+    --space-surface: #faf8f0;
+    display: grid;
+    min-width: 0;
+    min-height: 31rem;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    grid-template-areas: "media content";
+    overflow: hidden;
+    direction: ltr;
+    border: 1px solid rgba(36, 71, 103, 0.12);
+    border-radius: 1.35rem;
+    background: var(--space-surface);
+    box-shadow: 0 10px 28px rgba(36, 71, 103, 0.08);
+    transition: border-color 180ms ease, box-shadow 180ms ease, translate 180ms ease;
+  }
+
+  .space-card--professional {
+    --space-accent: #456f89;
+    --space-accent-soft: #e7eff2;
+    --space-surface: #f7f7f3;
+    grid-template-areas: "content media";
+  }
+
+  .space-card:hover {
+    border-color: color-mix(in srgb, var(--space-accent) 30%, transparent);
+    box-shadow: 0 15px 32px rgba(36, 71, 103, 0.12);
+    translate: 0 -2px;
+  }
+
+  .space-card__media {
+    position: relative;
+    min-width: 0;
+    min-height: 100%;
+    grid-area: media;
+    overflow: hidden;
+    margin: 0;
+    background: var(--space-accent-soft);
+  }
+
+  .space-card__media::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(25, 47, 67, 0.48), transparent 34%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .space-card--family .space-card__media::before,
+  .space-card--professional .space-card__media::before {
+    position: absolute;
+    inset-block: 0;
+    z-index: 1;
+    width: 26%;
+    content: "";
+    pointer-events: none;
+  }
+
+  .space-card--family .space-card__media::before {
+    inset-inline-end: 0;
+    background: linear-gradient(to left, var(--space-surface), transparent);
+  }
+
+  .space-card--professional .space-card__media::before {
+    inset-inline-start: 0;
+    background: linear-gradient(to right, var(--space-surface), transparent);
+  }
+
+  .space-card__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 31rem;
+    object-fit: cover;
+    object-position: var(--image-position, center);
+    transition: scale 450ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .space-card:hover .space-card__media img {
+    scale: 1.025;
+  }
+
+  .space-card__image-caption {
+    position: absolute;
+    inset-inline-start: 1rem;
+    inset-block-end: 1rem;
+    z-index: 2;
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-shadow: 0 1px 8px rgba(20, 35, 44, 0.35);
+  }
+
+  .space-card__content {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    grid-area: content;
+    padding: clamp(1.1rem, 2vw, 1.65rem);
+    direction: rtl;
+  }
+
+  .space-card__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-block-end: 1.1rem;
+  }
+
+  .space-card__icon {
+    display: grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--space-accent) 18%, transparent);
+    border-radius: 0.95rem 0.75rem 1rem 0.8rem;
+    background: rgba(255, 253, 248, 0.85);
+    color: var(--space-accent);
+  }
+
+  .space-card__icon svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .space-card__status {
+    padding: 0.28rem 0.55rem;
+    border: 1px solid color-mix(in srgb, var(--space-accent) 20%, transparent);
+    border-radius: 999px;
+    background: var(--space-accent-soft);
+    color: var(--space-accent);
+    font-size: 0.65rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .space-card__copy h3 {
+    margin: 0 0 0.45rem;
+    color: var(--color-primary-dark);
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    line-height: 1.42;
+  }
+
+  .space-card__copy p {
+    margin: 0;
+    color: #526574;
+    font-size: 0.86rem;
+    line-height: 1.8;
+  }
+
+  .space-card__features {
+    display: grid;
+    gap: 0.42rem;
+    margin: 1rem 0 1.1rem;
+    padding: 0.85rem 0 0;
+    border-block-start: 1px solid rgba(36, 71, 103, 0.11);
+    list-style: none;
+  }
+
+  .space-card__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    color: #3d5364;
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+
+  .space-card__features li span {
+    width: 0.4rem;
+    height: 0.4rem;
+    flex: 0 0 auto;
+    margin-block-start: 0.62em;
+    border-radius: 50%;
+    background: var(--space-accent);
+  }
+
+  .space-card__link {
+    display: inline-flex;
+    min-height: 2.85rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    align-self: flex-start;
+    margin-block-start: auto;
+    padding: 0.62rem 0.9rem;
+    border: 1px solid color-mix(in srgb, var(--space-accent) 24%, transparent);
+    border-radius: 999px;
+    background: var(--space-accent-soft);
+    color: color-mix(in srgb, var(--space-accent) 78%, #192f43);
+    font-size: 0.78rem;
+    font-weight: 800;
+    transition: background-color 180ms ease, border-color 180ms ease, gap 180ms ease;
+  }
+
+  .space-card__link:hover {
+    gap: 0.75rem;
+    border-color: color-mix(in srgb, var(--space-accent) 45%, transparent);
+    background: color-mix(in srgb, var(--space-accent-soft) 72%, white);
+  }
+
+  .space-card__link svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 1000px) {
+    .spaces-heading {
+      grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.8fr);
+    }
+
+    .spaces-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.15rem;
+    }
+
+    .space-card {
+      min-height: 27rem;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+
+    .space-card--professional {
+      grid-template-areas: "content media";
+    }
+
+    .space-card__media img {
+      min-height: 27rem;
+    }
+
+    .space-card__content {
+      padding: clamp(1.25rem, 3vw, 2rem);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .spaces-section {
+      padding-block: 3.5rem;
+    }
+
+    .spaces-heading {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.65rem;
+      margin-block-end: 1.5rem;
+    }
+
+    .spaces-heading h2 {
+      font-size: clamp(2rem, 9vw, 2.7rem);
+    }
+
+    .spaces-heading > p {
+      max-width: 37rem;
+      font-size: 0.9rem;
+    }
+
+    .spaces-grid {
+      gap: 1rem;
+    }
+
+    .space-card,
+    .space-card--professional {
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "media"
+        "content";
+      border-radius: 1.15rem;
+    }
+
+    .space-card__media {
+      min-height: 0;
+      aspect-ratio: 1.9;
+    }
+
+    .space-card__media img {
+      min-height: 0;
+    }
+
+    .space-card--family .space-card__media::before,
+    .space-card--professional .space-card__media::before {
+      inset: auto 0 0;
+      width: 100%;
+      height: 28%;
+      background: linear-gradient(to bottom, transparent, rgba(25, 47, 67, 0.14));
+    }
+
+    .space-card__image-caption {
+      inset-inline-start: 0.85rem;
+      inset-block-end: 0.7rem;
+      font-size: 0.82rem;
+    }
+
+    .space-card__content {
+      padding: 1.15rem;
+    }
+
+    .space-card__eyebrow {
+      margin-block-end: 0.8rem;
+    }
+
+    .space-card__copy h3 {
+      font-size: clamp(1.35rem, 6vw, 1.65rem);
+    }
+
+    .space-card__copy p {
+      font-size: 0.84rem;
+    }
+
+    .space-card__features {
+      gap: 0.4rem;
+      margin-block: 0.85rem 1rem;
+    }
+
+    .space-card__features li {
+      font-size: 0.78rem;
+    }
+
+    .space-card__link {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .space-card,
+    .space-card__media img,
+    .space-card__link {
+      transition: none;
+    }
+
+    .space-card:hover {
+      translate: none;
+    }
+  }
+</style>

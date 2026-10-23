@@ -1,0 +1,170 @@
+---
+import { sitePath } from '../../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  topics: string[];
+  tone: 'family' | 'professional';
+}
+
+const { title, description, topics, tone } = Astro.props;
+---
+
+<section class={`space-landing space-landing--${tone}`}>
+  <div class="container">
+    <a class="space-landing__back" href={sitePath('/#spaces')}>
+      <span aria-hidden="true">→</span>
+      العودة إلى مساحات RehaLink
+    </a>
+
+    <div class="space-landing__paper">
+      <span class="space-landing__status">مساحة قيد الإعداد</span>
+      <h1>{title}</h1>
+      <p class="space-landing__description">{description}</p>
+      <div class="space-landing__notice">
+        <span aria-hidden="true">✳</span>
+        نعمل على إعداد محتوى هذه المساحة. المواضيع التالية مقترحة وليست موارد منشورة حالياً.
+      </div>
+
+      <h2>مواضيع نخطط لتقديمها</h2>
+      <ul>
+        {topics.map((topic) => <li>{topic}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .space-landing {
+    min-height: 62vh;
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 8vw, 7rem);
+    background:
+      radial-gradient(ellipse at 12% 80%, rgba(226, 234, 220, 0.7), transparent 35%),
+      #f8f5ed;
+  }
+
+  .space-landing--professional {
+    background:
+      radial-gradient(ellipse at 12% 80%, rgba(224, 237, 242, 0.8), transparent 35%),
+      #f8f5ed;
+  }
+
+  .space-landing__back {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.55rem;
+    margin-block-end: 1.5rem;
+    color: #426a56;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-underline-offset: 4px;
+  }
+
+  .space-landing__back:hover {
+    text-decoration: underline;
+  }
+
+  .space-landing__paper {
+    max-width: 52rem;
+    margin-inline: auto;
+    padding: clamp(1.35rem, 5vw, 3.5rem);
+    border: 1px solid rgba(36, 71, 103, 0.12);
+    border-radius: 1.5rem;
+    background: rgba(255, 253, 248, 0.94);
+    box-shadow: 0 16px 38px rgba(36, 71, 103, 0.09);
+  }
+
+  .space-landing__status {
+    display: inline-flex;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(84, 135, 108, 0.23);
+    border-radius: 999px;
+    background: #edf4eb;
+    color: #527d68;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .space-landing--professional .space-landing__status {
+    border-color: rgba(68, 111, 137, 0.23);
+    background: #eaf2f4;
+    color: #446f89;
+  }
+
+  .space-landing h1 {
+    margin: 0.8rem 0 0.55rem;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.35;
+  }
+
+  .space-landing__description {
+    max-width: 43rem;
+    margin: 0;
+    color: #566a79;
+    font-size: 1rem;
+    line-height: 2;
+  }
+
+  .space-landing__notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-block: 1.4rem 2rem;
+    padding: 0.9rem 1rem;
+    border-inline-start: 3px solid #83a891;
+    border-radius: 0.5rem;
+    background: #f0f5ed;
+    color: #3c5e4b;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .space-landing--professional .space-landing__notice {
+    border-inline-start-color: #7197a9;
+    background: #edf3f5;
+    color: #35586b;
+  }
+
+  .space-landing__notice span {
+    flex: 0 0 auto;
+  }
+
+  .space-landing h2 {
+    margin: 0 0 0.8rem;
+    font-size: 1.35rem;
+  }
+
+  .space-landing ul {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .space-landing li {
+    position: relative;
+    padding: 0.65rem 1.35rem 0.65rem 0.8rem;
+    border-block-end: 1px solid rgba(36, 71, 103, 0.09);
+    color: #405669;
+    line-height: 1.75;
+  }
+
+  .space-landing li::before {
+    position: absolute;
+    inset-inline-start: 0.2rem;
+    inset-block-start: 1.25rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: #77a58b;
+    content: "";
+  }
+
+  .space-landing--professional li::before {
+    background: #7197a9;
+  }
+</style>

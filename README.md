@@ -1,8 +1,11 @@
 # Rehalink
 
 An Arabic-first rehabilitation website built with Astro. The site includes the home,
-contact, and privacy pages. The hero uses an original, lightweight SVG illustration,
-so it works without a video or external media download.
+contact, and privacy pages. The hero uses the local `public/videos/intro.mp4` video with an original SVG poster
+and fallback. Service videos and their local poster images are stored under
+`public/videos/` and `public/images/`.
+The adult-stuttering section currently uses the local support illustration because
+`public/videos/stuttering-adults.mp4` was not present in the project asset inventory.
 
 ## Run locally
 
@@ -19,13 +22,16 @@ npm run build
 
 ## WhatsApp destination
 
-Set the contact destination in a local `.env` file before using the contact form:
+For local development, set a confirmed WhatsApp destination in a local `.env` file:
 
 ```bash
-PUBLIC_WHATSAPP_NUMBER=212600000000
+PUBLIC_WHATSAPP_NUMBER=REPLACE_WITH_CONFIRMED_NUMBER
 ```
 
-If that value is not configured, the site keeps the contact flow disabled and shows a clear message instead of inventing a number.
+Replace the placeholder with the confirmed international destination number using
+digits only (including the country code). Never commit the actual destination in
+source code. If it is not configured, the form explains that WhatsApp is unavailable.
 
-To use a real photo or video in the hero, replace `public/images/hero-scene.svg`
-and update `src/components/home/Hero.astro` accordingly.
+For GitHub Pages, add a repository Actions variable named
+`PUBLIC_WHATSAPP_NUMBER` under **Settings → Secrets and variables → Actions → Variables**.
+The build passes that variable to Astro; if it is unset, no destination is invented.
